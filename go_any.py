@@ -290,17 +290,3 @@ def pwm_low():
     LeftPwm.ChangeDutyCycle(0)
     RightPwm.ChangeDutyCycle(0)
     GPIO.cleanup()
-
-
-# Test Module Function (Main)
-if __name__ == "__main__":
-    try:
-        go_forward(10, 1)
-        go_backward(10, 1)
-        pwm_low()
-
-    # when the Ctrl+C key has been pressed,
-    # the moving object will be stopped
-    except KeyboardInterrupt:
-        pwm_low()
-
