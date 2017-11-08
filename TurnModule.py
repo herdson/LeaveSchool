@@ -7,9 +7,8 @@
 ######################################################################
 
 # import GPIO librery
-import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO 
 import time
-from go_any import pwm_low
 
 # set up GPIO mode as BOARD
 GPIO.setmode(GPIO.BOARD)
@@ -17,16 +16,13 @@ GPIO.setmode(GPIO.BOARD)
 # set GPIO warnings as flase
 GPIO.setwarnings(False)
 
-
 # =======================================================================
 # REVERSE function to control the direction of motor in reverse
 def REVERSE(x):
-    if x == True:
-        return False
-    elif x == False:
-        return True
-
-
+   if x == True:
+      return False
+   elif x == False:
+      return True
 # =======================================================================
 
 # =======================================================================
@@ -36,29 +32,28 @@ forward1 = False
 # =======================================================================
 
 # ======================================================================= 
-# Set the motor's true / false value to go opposite.
+#Set the motor's true / false value to go opposite.
 backward0 = REVERSE(forward0)
 backward1 = REVERSE(forward1)
 # =======================================================================
 
 # =======================================================================
-# declare the pins of 12, 11, 35 in the Raspberry Pi
+# declare the pins of 12, 11, 35 in the Rapberry Pi
 # as the left motor control pins in order to control left motor
 # left motor needs three pins to be controlled
 # =======================================================================
-MotorLeft_A = 12
+MotorLeft_A = 12 
 MotorLeft_B = 11
 MotorLeft_PWM = 35
 
 # =======================================================================
-# declare the pins of 15, 13, 37 in the Raspberry Pi
+# declare the pins of 15, 13, 37 in the Rapberry Pi
 # as the right motor control pins in order to control right motor
 # right motor needs three pins to be controlled
 # =======================================================================
-MotorRight_A = 15
+MotorRight_A = 15 
 MotorRight_B = 13
 MotorRight_PWM = 37
-
 
 # ===========================================================================
 # Control the DC motor to make it rotate clockwise, so the car will 
@@ -72,25 +67,23 @@ MotorRight_PWM = 37
 # ===========================================================================
 
 def leftmotor(x):
-    if x == True:
-        GPIO.output(MotorLeft_A, GPIO.HIGH)
-        GPIO.output(MotorLeft_B, GPIO.LOW)
-    elif x == False:
-        GPIO.output(MotorLeft_A, GPIO.LOW)
-        GPIO.output(MotorLeft_B, GPIO.HIGH)
-    else:
-        print 'Config Error'
-
+	if x == True:
+		GPIO.output(MotorLeft_A, GPIO.HIGH)
+		GPIO.output(MotorLeft_B, GPIO.LOW)
+	elif x == False:
+		GPIO.output(MotorLeft_A, GPIO.LOW)
+		GPIO.output(MotorLeft_B, GPIO.HIGH)
+	else:
+		print 'Config Error'
 
 def rightmotor(x):
-    if x == True:
-        GPIO.output(MotorRight_A, GPIO.LOW)
-        GPIO.output(MotorRight_B, GPIO.HIGH)
-    elif x == False:
-        GPIO.output(MotorRight_A, GPIO.HIGH)
-        GPIO.output(MotorRight_B, GPIO.LOW)
-
-
+	if x == True:
+		GPIO.output(MotorRight_A, GPIO.LOW)
+		GPIO.output(MotorRight_B, GPIO.HIGH)
+	elif x == False:
+		GPIO.output(MotorRight_A, GPIO.HIGH)
+		GPIO.output(MotorRight_B, GPIO.LOW)
+		
 # =======================================================================
 # because the connetions between motors (left motor) and Rapberry Pi has been 
 # established, the GPIO pins of Rapberry Pi
@@ -99,9 +92,9 @@ def rightmotor(x):
 # are output pin or input pin
 # =======================================================================
 
-GPIO.setup(MotorLeft_A, GPIO.OUT)
-GPIO.setup(MotorLeft_B, GPIO.OUT)
-GPIO.setup(MotorLeft_PWM, GPIO.OUT)
+GPIO.setup(MotorLeft_A,GPIO.OUT)
+GPIO.setup(MotorLeft_B,GPIO.OUT)
+GPIO.setup(MotorLeft_PWM,GPIO.OUT)
 
 # =======================================================================
 # because the connetions between motors (right motor) and Rapberry Pi has been 
@@ -111,20 +104,19 @@ GPIO.setup(MotorLeft_PWM, GPIO.OUT)
 # are output pin or input pin
 # =======================================================================
 
-GPIO.setup(MotorRight_A, GPIO.OUT)
-GPIO.setup(MotorRight_B, GPIO.OUT)
-GPIO.setup(MotorRight_PWM, GPIO.OUT)
+GPIO.setup(MotorRight_A,GPIO.OUT)
+GPIO.setup(MotorRight_B,GPIO.OUT)
+GPIO.setup(MotorRight_PWM,GPIO.OUT)
 
 # =======================================================================
 # create left pwm object to control the speed of left motor
 # =======================================================================
-LeftPwm = GPIO.PWM(MotorLeft_PWM, 100)
+LeftPwm=GPIO.PWM(MotorLeft_PWM,100)
 
 # =======================================================================
 # create right pwm object to control the speed of right motor
 # =======================================================================
-RightPwm = GPIO.PWM(MotorRight_PWM, 100)
-
+RightPwm=GPIO.PWM(MotorRight_PWM,100) 
 
 # =======================================================================
 # perform right swing turn of 90 degree  
@@ -132,14 +124,14 @@ RightPwm = GPIO.PWM(MotorRight_PWM, 100)
 def rightSwingTurn(speed, running_time):
     # set the left motor to go fowrard
     leftmotor(forward0)
-    # leftmotor(forward1)
+    #leftmotor(forward1)
 
     # set the left motor pwm to be ready to go forward
-    GPIO.output(MotorLeft_PWM, GPIO.HIGH)
+    GPIO.output(MotorLeft_PWM,GPIO.HIGH)
 
     # set the right motor pwm to be ready to stop
     # Turn Off Right PWM
-    GPIO.output(MotorRight_PWM, GPIO.LOW)
+    GPIO.output(MotorRight_PWM,GPIO.LOW)
     # set the speed of the left motor to go fowrard
     LeftPwm.ChangeDutyCycle(speed)
     # set the speed of the right motor to stop
@@ -147,20 +139,20 @@ def rightSwingTurn(speed, running_time):
     # set the running time of the left motor to go fowrard
     time.sleep(running_time)
 
-
 # =======================================================================
 # perform left swing turn of 90 degree  
 # ======================================================================= 
 def leftSwingTurn(speed, running_time):
+
     # set the left motor pwm to be ready to stop
     # Turn Off Left PWM
-    GPIO.output(MotorLeft_PWM, GPIO.LOW)
+    GPIO.output(MotorLeft_PWM,GPIO.LOW)  
 
     # set the right motor to go fowrard
     rightmotor(forward0)
 
     # set the right motor pwm to be ready to go forward   
-    GPIO.output(MotorRight_PWM, GPIO.HIGH)
+    GPIO.output(MotorRight_PWM,GPIO.HIGH)
 
     # set the speed of the left motor to stop
     LeftPwm.ChangeDutyCycle(0)
@@ -175,55 +167,32 @@ def leftSwingTurn(speed, running_time):
 # ======================================================================
 
 def rightPointTurn(speed, running_time):  # student assignment (1)
-
-    # set the left motor to go forward and right motor to go backward
+#Make car turning right
     leftmotor(forward0)
     rightmotor(backward0)
-
-    # set the left and right motor pwm to be ready to move
-    GPIO.output(MotorLeft_PWM, GPIO.HIGH)
-    GPIO.output(MotorRight_PWM, GPIO.HIGH)
-
-    # set the speed of the left motor to go forward
+#Setup the speed
     LeftPwm.ChangeDutyCycle(speed)
-
-    # set the speed of the right motor to stop
     RightPwm.ChangeDutyCycle(speed)
-
-    # set the running time of the left motor to go forward
     time.sleep(running_time)
-
-
-# =======================================================================
+#=======================================================================
 # perform left point turn of 90 degree   # student assignment (2)
 # ======================================================================
 
 def leftPointTurn(speed, running_time):  # student assignment (2)
-
-    # set the left motor to go backward and right motor to go forward
-    leftmotor(backward0)
+#Make car turning left
     rightmotor(forward0)
-
-    # set the left and right motor pwm to be ready to move
-    GPIO.output(MotorLeft_PWM, GPIO.HIGH)
-    GPIO.output(MotorRight_PWM, GPIO.HIGH)
-
-    # set the speed of the left motor to go backward
-    LeftPwm.ChangeDutyCycle(speed)
-
-    # set the speed of the right motor to go forward
+    leftmotor(backward0)
+#Setup the speed
     RightPwm.ChangeDutyCycle(speed)
-
-    # set the running time of the left motor to go forward
+    LeftPwm.ChangeDutyCycle(speed)
     time.sleep(running_time)
 
+def detailTurn(left_speed, right_speed, running_time):
+#Make car turning a detail
+    rightmotor(forward0)
+    leftmotor(forward0)
 
-if __name__ == "__main__":
-    try:
-        rightPointTurn(0.1, 1)
-        pwm_low()
-
-    # when the Ctrl+C key has been pressed,
-    # the moving object will be stopped
-    except KeyboardInterrupt:
-        pwm_low()
+#Setup the speed
+    RightPwm.ChangeDutyCycle(left_speed)
+    LeftPwm.ChangeDutyCycle(right_speed)
+    time.sleep(running_time)
