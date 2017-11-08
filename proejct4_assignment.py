@@ -138,6 +138,9 @@ try:
         print("rightlessled detects black line(0) or white ground(1): " + str(getRightlessled()))
         print("rightmostled detects black line(0) or white ground(1): " + str(getRightmostled()))
 
+        # Line checking latency time.
+        sleep(1)
+
         # ultra sensor replies the distance back
         distance = getDistance()
         goLineTracing(lspeed1,rspeed1, lspeed2, rspeed2)
