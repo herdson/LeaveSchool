@@ -51,6 +51,15 @@ pwm_setup()
 #  to perform the project3 with ultra sensor
 #  and swing turn
 # =======================================================================
+speed = 50
+
+# turn fine right when car's direction is left
+lspeed1 = 8
+rspeed1 = 15
+
+# turn fine left when car's direction is right
+lspeed2 = 15
+rspeed2 = 8
 
 # used avoid_obstacle
 obstacle_left_speed = 30
@@ -64,50 +73,85 @@ isobstacle_right_speed = 5
 linefound_left_speed = 15
 linefound_right_speed = 8
 
-# project4_assignment
+# Distance detector
+dis = 15
+isPosition = 0
+
+# =======================================================================
+# Define LineTracing Function
+# =======================================================================
 def obstacle_linetracing(distance_value):
     detailTurn(obstacle_left_speed, obstacle_right_speed, 2) #First Right Turn
     while (distance_value < dis): # is obstacle 
         detailTurn(isobstacle_left_speed, isobstacle_right_speed, 2)
     # not obstacle 
-    try:	
-	go_forward(20, 2) # constance
+    try:
+        go_forward(20, 2) # constance
+    except Exception:
+        print("Detected Error")
+    else:
+        print("No Problem")
     finally:
-	detailTurn(obstacle_right_speed, obstacle_left_speed, 2) #Last Left Turn
-	while not(GPIO_input(leftmostled)) and not(GPIO_input(leftlessled)): # line not found
-	    go_forward(10, 2) # constance
-	while not(GPIO_input(centerled)) and not (GPIO_input(rightlessled)): # Line Sorting
- 	    detailTurn(linefound_left_speed, linefound_right_speed, 2) 
+        detailTurn(obstacle_right_speed, obstacle_left_speed, 2) #Last Left Turn
+        while getLeftmostled() or getLeftlessled(): # line found
+            go_forward(10, 2) # constance
+        while getCenterled() or getRightlessled(): # Line Sorting
+            detailTurn(linefound_left_speed, linefound_right_speed, 2)
+    print("obstacle avoid Success")
 
+def goLineTracing(lspeed1, rspeed1, lspeed2, rspeed2):
+    if not(getLeftlessled()) or not(getLeftmostled()):
+        go_forward_fine(lspeed1, rspeed1)
+    elif not(getRightlessled()) or not(getRightmostled()):
+        go_forward_fine(lspeed2, rspeed2)
+    else:
+        go_forward_any(speed)
 
-# Distance detector
-dis = 15
-obstacle = 1
-
+def AllWhitespace():
+    try:
+        detailTurn(linefound_right_speed, linefound_left_speed, 2) #Left line searching
+        if getLeftmostled():
+            global isPosition
+            # ------------------------------------------------------- #
+            detailTurn(linefound_left_speed, linefound_right_speed, 2) #Right line searching
+            isPosition = True
+    except Exception:
+        print("Detected Error")
+    else:
+        print("No Problem")
+    finally:
+        while getLeftlessled() or getRightlessled(): #line found
+            go_forward(10, 2)
+        while getLeftlessled() or getCenterled() or getRightlessled(): # Line Sorting
+            if not(isPosition):
+                detailTurn(linefound_left_speed, linefound_right_speed, 2)  # rightLine Sorting
+            else:
+                detailTurn(linefound_right_speed, linefound_left_speed, 2)  # leftLine Sorting
+        print("Line Finding Success")
 
 try:
     while True:
+        # Checking line
+        print("leftmostled  detects black line(0) or white ground(1): " + str(getLeftmostled()))
+        print("leftlessled  detects black line(0) or white ground(1): " + str(getLeftlessled()))
+        print("centerled    detects black line(0) or white ground(1): " + str(getCenterled()))
+        print("rightlessled detects black line(0) or white ground(1): " + str(getRightlessled()))
+        print("rightmostled detects black line(0) or white ground(1): " + str(getRightmostled()))
+
         # ultra sensor replies the distance back
         distance = getDistance()
-				
-	go_forward_any(35)
+        goLineTracing(lspeed1,rspeed1, lspeed2, rspeed2)
 
-	if (distance < dis):
-            detailTurn(	
-	if GPIO.input(leftmostled): # 1
-	
-	if GPIO.input(leftlessled): # 2
+        if distance < dis: #obstacle found
+            stop()
+            obstacle_linetracing(distance)
 
-	if GPIO.input(centerled): # 3
+        if getLeftmostled() and getCenterled() and getRightmostled(): #reading sensor - All White
+            stop()
+            AllWhitespace()
 
-	if GPIO.input(rightlessled): # 4
-
-	if GPUO.input(rightmostled): # 5
-
-
-    print 'Shutdown'            
+    print ("Shutdown")
     pwm_low()
-
 
 # when the Ctrl+C key has been pressed,
 # the moving object will be stopped
