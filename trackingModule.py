@@ -121,16 +121,3 @@ def getRightlessled():
 
 def getRightmostled():
     return GPIO.input(rightmostled)
-
-
-try:
-    while True:
-        print("leftmostled  detects black line(0) or white ground(1): " + str(GPIO.input(leftmostled)))
-        print("leftlessled  detects black line(0) or white ground(1): " + str(GPIO.input(leftlessled)))
-        print("centerled    detects black line(0) or white ground(1): " + str(GPIO.input(centerled)))
-        print("rightlessled detects black line(0) or white ground(1): " + str(GPIO.input(rightlessled)))
-        print("rightmostled detects black line(0) or white ground(1): " + str(GPIO.input(rightmostled)))
-        time.sleep(1)
-
-except KeyboardInterrupt:
-    GPIO.cleanup()
