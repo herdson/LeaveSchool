@@ -75,14 +75,15 @@ linefound_right_speed = 8
 
 # Distance detector
 dis = 15
-isPosition = 0
+isPosition = False
+isTurn = False
 
 # =======================================================================
 # Define LineTracing Function
 # =======================================================================
 def obstacle_linetracing(distance_value):
     detailTurn(obstacle_left_speed, obstacle_right_speed, 2) #First Right Turn
-    while (distance_value < dis): # is obstacle 
+    while distance_value < dis: # is obstacle
         detailTurn(isobstacle_left_speed, isobstacle_right_speed, 2)
     # not obstacle 
     try:
@@ -95,16 +96,26 @@ def obstacle_linetracing(distance_value):
         detailTurn(obstacle_right_speed, obstacle_left_speed, 2) #Last Left Turn
         while getLeftmostled() or getLeftlessled(): # line found
             go_forward(10, 2) # constance
-        while getCenterled() or getRightlessled(): # Line Sorting
+        while getCenterled() or getRightlessled(): # Stabilize after Turn
             detailTurn(linefound_left_speed, linefound_right_speed, 2)
     print("obstacle avoid Success")
 
 def goLineTracing(lspeed1, rspeed1, lspeed2, rspeed2):
-    if not(getLeftlessled()) or not(getLeftmostled()):
+    global isTurn
+    if not(getRightmostled()) or getLeftmostled(): # Turn Section
+        isTurn = True
         go_forward_fine(lspeed1, rspeed1)
-    elif not(getRightlessled()) or not(getRightmostled()):
+    elif getRightlessled() :# Need a Stabilization
         go_forward_fine(lspeed2, rspeed2)
+    elif getLeftlessled(): # Need a Stabilization
+        go_forward_fine(rspeed2, lspeed2)
     else:
+        if isTurn: # Stabilize after Turn
+            while not(getRightlessled()) and not(getLeftlessled()):
+                go_forward_fine((lspeed1 - 5), (rspeed2 - 5))
+            print("Turn Success")
+            isTurn = False 
+        # only forward
         go_forward_any(speed)
 
 def AllWhitespace():
