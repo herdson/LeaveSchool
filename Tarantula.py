@@ -46,72 +46,102 @@ pwm_setup()
 #  and swing turn
 # =======================================================================
 
+# used avoid_obstacle
+obstacle_left_speed = 45
+obstacle_right_speed = 2
+
+# used isobstacle 
+isobstacle_left_speed = 15
+isobstacle_right_speed = 5
+
 # Distance detector
 dis = 15
-obstacle = 1
+isPosition = 0
 
-#Set turn value
-SwingPr = 90
-SwingTr = 0.55
-SwingPl = 90
-SwingTl = 0.37
-PointPr = 90
-PointTr = 0.41
-PointPl = 90
-PointTl = 0.19
+def obstacle_linetracing(distance_value):
+    try:
+        trackline_time(obstacle_left_speed, obstacle_right_speed, 1) #First Right Turn
+        print("Enter 2")
+        while (getDistance() < dis): # is obstacle 
+           trackline_time(isobstacle_left_speed, isobstacle_right_speed, 1)
+           print("Enter 1")
+    
+        trackline_time(obstacle_right_speed, obstacle_left_speed, 0.3) #First Left Turn
+        print("Enter 3") # not obstacle
+	stop()
+	print("Enter 4")
 
-
-
+        go_forward(40, 1.2) # constance
+    except Exception:
+        print("Detected Error")
+    else:
+        print("No Problem")
+    finally:
+        trackline_time(obstacle_right_speed, obstacle_left_speed, 0.8) # Second Left Turn
+	print("Enter 5")
+	trackline_time(obstacle_left_speed, obstacle_right_speed, 0.5) # Second Right Turn
+	print("Enter 6")
+    print("obstacle avoid Success")
 
 try:
     while True:
-        # ultra sensor replies the distance back
+        #ultra sensor replies the distance back
         distance = getDistance()
-        # IR sensor
+       
+	# IR sensor
         Le = getLeftmostled()
         Lc = getLeftlessled()
         M = getCenterled()
         Rc = getRightlessled()
         Re = getRightmostled()
-
-        #print('distance= ', distance)
-        #print Le, Lc, M, Rc, Re
+       
+	# obstacle found
+        if distance < dis:
+            stop()
+            obstacle_linetracing(distance)
 
         # when the distance is above the dis, moving object forwards
         if (M == 0) and (Lc == 1) and (Rc == 1):
-            go_forward_any(27)
+            go_forward_any(50)
+            print "FORWARD"
             #print('Obstacle counted ', obstacle)
-            #print "FORWARD"
         # Follow black line
         elif (Le == 0) and (Lc == 1) and (M == 1) and (Rc == 1) and (Re == 1):
-            trackline(20, 37)
+            trackline(7, 60)
             print "LEFT"
 
         elif (Le == 1) and (Lc == 0) and (M == 0) and (Rc == 1) and (Re == 1):
-            trackline(23, 35)
+            trackline(33, 40)
             print "Semi LEFT"
 
         elif (Le == 0) and (Lc == 0) and (M == 1) and (Rc == 1) and (Re == 1):
-            trackline(26, 33)
+            trackline(37, 46)
             print "Track RIGHT"
 
         elif (Le == 1) and (Lc == 1) and (M == 0) and (Rc == 0) and (Re == 1):
-            trackline(35, 25)
+            trackline(40, 33)
             print "Semi RIGHT"
 
         elif (Le == 1) and (Lc == 1) and (M == 1) and (Rc == 0) and (Re == 0):
-            trackline(33, 26)
+            trackline(46, 37)
             print "Track RIGHT"
 
         elif (Le == 1) and (Lc == 1) and (M == 1) and (Rc == 1) and (Re == 0):
-            trackline(37, 20)
+            trackline(60, 7)
             print "RIGHT"
-        elif (Le == 1) and (Lc == 1) and (M == 1) and (Rc ==1) and (Re == 1):
+
+        elif (Le == 1) and (Lc == 1) and (M == 1) and (Rc == 1) and (Re == 1):
             stop()
-            print "FAILED search line"
+            print "FAILED RIGHT search line"
             sleep(1.2)
             leftSwingTurn(30, 0.3)
-
+	    #if (Le == 1) and (Lc == 1) and (M == 1) and (Rc == 1) and (Re == 1):
+	    #	print "FAILED LEFT search line"
+		#sleep(1.2)
+		#rightSwingTurn(30, 0.6)
+        elif (Le == 0) and (Lc == 0) and (M == 0) and (Rc == 0) and (Re == 0):
+            stop()
+            pwm_low()     
 
     print 'Shutdown'            
     pwm_low()
