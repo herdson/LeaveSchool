@@ -60,19 +60,30 @@ isPosition = 0
 
 
 def avoidobstacle():
-    rightPointTurn(80, 0.3)
+    rightPointTurn(100, 0.5)
     stop()
+    sleep(2)
     print "enter 1"
-    go_forward(80, 0.4)
-    leftPointTurn(80, 0.3)
+    go_forward(100, 0.3)
     stop()
+    sleep(2)
     print "enter 2"
-    go_forward(80, 0.4)
-    leftPointTurn(80, 0.3)
+    leftPointTurn(100, 0.4)
     stop()
+    sleep(2)
     print "enter 3"
+    go_forward(100, 0.6)
     stop()
-    sleep(5)
+    sleep(2)
+    print "enter 4"
+    leftPointTurn(100, 0.5)
+    stop()
+    sleep(2)
+    print "enter 5"
+    go_forward(100, 0.3)
+    stop()
+    sleep(2)
+    print "enter 6"
 
 def obstacle_linetracing(distance_value):
     try:
@@ -118,28 +129,36 @@ try:
 
         # when the distance is above the dis, moving object forwards
         if (M == 0) and (Lc == 1) and (Rc == 1):
-            go_forward_any(30)
+            go_forward_any(35)
             print "FORWARD"
             #print('Obstacle counted ', obstacle)
-        # Follow black line
+        # Follow black line 1 0 1 1 1
         elif (Le == 0) and (Lc == 1) and (M == 1) and (Rc == 1) and (Re == 1):
             trackline(8, 65)
             print "LEFT"
 
         elif (Le == 1) and (Lc == 0) and (M == 0) and (Rc == 1) and (Re == 1):
-            trackline(25, 32)
+            trackline(30, 39)
             print "Semi LEFT"
 
+	elif (Le == 1) and (Lc == 1) and (M == 0) and (Rc == 0) and (Re == 0):
+	    trackline(30, 39)
+	    print "Semi LEFT 2"
+
+	elif (Le == 1) and (Lc == 0) and (M == 1) and (Rc == 1) and (Re == 1):
+	    trackline(30, 39)
+            print "Semi LEFT 3"
+
         elif (Le == 0) and (Lc == 0) and (M == 1) and (Rc == 1) and (Re == 1):
-            trackline(21, 29)
+            trackline(26, 34)
             print "Track RIGHT"
 
         elif (Le == 1) and (Lc == 1) and (M == 0) and (Rc == 0) and (Re == 1):
-            trackline(32, 25)
+            trackline(37, 30)
             print "Semi RIGHT"
 
         elif (Le == 1) and (Lc == 1) and (M == 1) and (Rc == 0) and (Re == 0):
-            trackline(29, 21)
+            trackline(34, 26)
             print "Track RIGHT"
 
         elif (Le == 1) and (Lc == 1) and (M == 1) and (Rc == 1) and (Re == 0):
