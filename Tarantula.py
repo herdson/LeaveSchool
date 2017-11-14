@@ -55,8 +55,24 @@ isobstacle_left_speed = 15
 isobstacle_right_speed = 5
 
 # Distance detector
-dis = 15
+dis = 8
 isPosition = 0
+
+
+def avoidobstacle():
+    rightPointTurn(80, 0.3)
+    stop()
+    print "enter 1"
+    go_forward(80, 0.4)
+    leftPointTurn(80, 0.3)
+    stop()
+    print "enter 2"
+    go_forward(80, 0.4)
+    leftPointTurn(80, 0.3)
+    stop()
+    print "enter 3"
+    stop()
+    sleep(5)
 
 def obstacle_linetracing(distance_value):
     try:
@@ -98,7 +114,7 @@ try:
 	# obstacle found
         if distance < dis:
             stop()
-            obstacle_linetracing(distance)
+            avoidobstacle()
 
         # when the distance is above the dis, moving object forwards
         if (M == 0) and (Lc == 1) and (Rc == 1):
