@@ -102,28 +102,28 @@ try:
 
         # when the distance is above the dis, moving object forwards
         if (M == 0) and (Lc == 1) and (Rc == 1):
-            go_forward_any(50)
+            go_forward_any(30)
             print "FORWARD"
             #print('Obstacle counted ', obstacle)
         # Follow black line
         elif (Le == 0) and (Lc == 1) and (M == 1) and (Rc == 1) and (Re == 1):
-            trackline(7, 60)
+            trackline(8, 65)
             print "LEFT"
 
         elif (Le == 1) and (Lc == 0) and (M == 0) and (Rc == 1) and (Re == 1):
-            trackline(33, 40)
+            trackline(25, 32)
             print "Semi LEFT"
 
         elif (Le == 0) and (Lc == 0) and (M == 1) and (Rc == 1) and (Re == 1):
-            trackline(37, 46)
+            trackline(21, 29)
             print "Track RIGHT"
 
         elif (Le == 1) and (Lc == 1) and (M == 0) and (Rc == 0) and (Re == 1):
-            trackline(40, 33)
+            trackline(32, 25)
             print "Semi RIGHT"
 
         elif (Le == 1) and (Lc == 1) and (M == 1) and (Rc == 0) and (Re == 0):
-            trackline(46, 37)
+            trackline(29, 21)
             print "Track RIGHT"
 
         elif (Le == 1) and (Lc == 1) and (M == 1) and (Rc == 1) and (Re == 0):
@@ -133,7 +133,7 @@ try:
         elif (Le == 1) and (Lc == 1) and (M == 1) and (Rc == 1) and (Re == 1):
             stop()
             print "FAILED RIGHT search line"
-            sleep(1.2)
+            sleep(0.7)
             leftSwingTurn(30, 0.3)
 	    #if (Le == 1) and (Lc == 1) and (M == 1) and (Rc == 1) and (Re == 1):
 	    #	print "FAILED LEFT search line"
@@ -142,6 +142,8 @@ try:
         elif (Le == 0) and (Lc == 0) and (M == 0) and (Rc == 0) and (Re == 0):
             stop()
             pwm_low()     
+
+	print("Le = ", Le, "Lc = ", Lc, "M = ", M, "Rc = ", Rc, "Re = ", Re)
 
     print 'Shutdown'            
     pwm_low()
