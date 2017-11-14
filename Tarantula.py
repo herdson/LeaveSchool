@@ -55,35 +55,40 @@ isobstacle_left_speed = 15
 isobstacle_right_speed = 5
 
 # Distance detector
-dis = 8
+dis = 10
 isPosition = 0
 
 
 def avoidobstacle():
-    rightPointTurn(100, 0.5)
+    rightPointTurn(100, 0.4)
     stop()
     sleep(2)
     print "enter 1"
-    go_forward(100, 0.3)
+    go_forward(100, 0.4)
     stop()
     sleep(2)
     print "enter 2"
-    leftPointTurn(100, 0.4)
+    leftPointTurn(100, 0.2)
     stop()
     sleep(2)
     print "enter 3"
-    go_forward(100, 0.6)
+    go_forward(100, 0.4)
     stop()
     sleep(2)
     print "enter 4"
-    leftPointTurn(100, 0.5)
+    leftPointTurn(100, 0.2)
     stop()
     sleep(2)
     print "enter 5"
-    go_forward(100, 0.3)
-    stop()
-    sleep(2)
-    print "enter 6"
+#    go_forward(100, 0.2)
+#    stop()
+#    sleep(2)
+#    print "enter 6"
+    while (getLeftmostled() == 1):
+	go_forward(100, 0.2)
+	stop()
+	sleep(2)
+	print "enter 6"
 
 def obstacle_linetracing(distance_value):
     try:
