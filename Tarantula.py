@@ -56,39 +56,37 @@ isobstacle_right_speed = 5
 
 # Distance detector
 dis = 10
-isPosition = 0
+isRightTurn = False
 
 
 def avoidobstacle():
-    rightPointTurn(100, 0.4)
+    rightPointTurn(100, 0.3)
     stop()
-    sleep(2)
+    sleep(1)
     print "enter 1"
     go_forward(100, 0.4)
     stop()
-    sleep(2)
+    sleep(1)
     print "enter 2"
     leftPointTurn(100, 0.2)
     stop()
-    sleep(2)
+    sleep(1)
     print "enter 3"
-    go_forward(100, 0.4)
+    go_forward(100, 0.3)
     stop()
-    sleep(2)
+    sleep(1)
     print "enter 4"
     leftPointTurn(100, 0.2)
     stop()
-    sleep(2)
+    sleep(1)
     print "enter 5"
-#    go_forward(100, 0.2)
-#    stop()
-#    sleep(2)
-#    print "enter 6"
-    while (getLeftmostled() == 1):
+    while True:
+	if (getLeftmostled() == 0 or getLeftlessled() == 0 or getCenterled() == 0 or getRightlessled == 0 or getRightmostled() == 0):
+	    break
 	go_forward(100, 0.2)
 	stop()
-	sleep(2)
-	print "enter 6"
+	sleep(1)
+	print "search line..."
 
 def obstacle_linetracing(distance_value):
     try:
@@ -126,6 +124,8 @@ try:
         M = getCenterled()
         Rc = getRightlessled()
         Re = getRightmostled()
+
+	isRightTurn = False
        
 	# obstacle found
         if distance < dis:
@@ -167,23 +167,27 @@ try:
             print "Track RIGHT"
 
         elif (Le == 1) and (Lc == 1) and (M == 1) and (Rc == 1) and (Re == 0):
-            trackline(60, 7)
+            trackline(65, 8)
+	    isRightTurn = True
             print "RIGHT"
-
         elif (Le == 1) and (Lc == 1) and (M == 1) and (Rc == 1) and (Re == 1):
-            stop()
-            print "FAILED RIGHT search line"
-            sleep(0.7)
-            leftSwingTurn(30, 0.3)
-	    #if (Le == 1) and (Lc == 1) and (M == 1) and (Rc == 1) and (Re == 1):
-	    #	print "FAILED LEFT search line"
-		#sleep(1.2)
-		#rightSwingTurn(30, 0.6)
+            if isRightTurn:
+	        stop()
+		print "FAILED RIGHT search line"
+		sleep(0.7)
+		rightSwingTurn(30, 0.3)
+	    else:
+	        stop()
+                print "FAILED LEFT search line"
+                sleep(0.7)
+                leftSwingTurn(30, 0.3)
         elif (Le == 0) and (Lc == 0) and (M == 0) and (Rc == 0) and (Re == 0):
             stop()
             pwm_low()     
 
-	print("Le = ", Le, "Lc = ", Lc, "M = ", M, "Rc = ", Rc, "Re = ", Re)
+	#print("Le = ", Le, "Lc = ", Lc, "M = ", M, "Rc = ", Rc, "Re = ", Re)
+	#isRightTurn = False
+	print(isRightTurn)
 
     print 'Shutdown'            
     pwm_low()
