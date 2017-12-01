@@ -28,28 +28,8 @@ class trackingModule:
         GPIO.setup(self.rightmostled_pin, GPIO.IN)
 
     def setup(self):
-        self.started = True
         self.pinSetup()
         self.loop()
-
-    def loop(self):
-        try:
-            while True:
-                if not (self.started):
-                    break
-                self.lmost_v = GPIO.input(self.leftmostled_pin)
-                self.lless_v = GPIO.input(self.leftlessled_pin)
-                self.center_v = GPIO.input(self.centerled_pin)
-                self.rless_v = GPIO.input(self.rightlessled_pin)
-                self.rmost_v = GPIO.input(self.rightmostled_pin)
-
-        # when the Ctrl+C key has been pressed,
-        # the moving object will be stopped
-        except KeyboardInterrupt:
-            self.stop()
-
-    def stop(self):
-        self.started = False
 
     def lmost(self):
         return self.lmost_v
