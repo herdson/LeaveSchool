@@ -9,18 +9,10 @@ class trackingModule:
     rightlessled_pin = 40
     rightmostled_pin = 32
     # ------------------ #
-    lmost_v = 0
-    lless_v = 0
-    center_v = 0
-    rless_v = 0
-    rmost_v = 0
-    # ------------------ #
-    started = False
-
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BOARD)
 
     def pinSetup(self):
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.leftmostled_pin, GPIO.IN)
         GPIO.setup(self.leftlessled_pin, GPIO.IN)
         GPIO.setup(self.centerled_pin, GPIO.IN)
@@ -29,35 +21,36 @@ class trackingModule:
 
     def setup(self):
         self.pinSetup()
-        self.loop()
 
     def lmost(self):
-        return self.lmost_v
+        return GPIO.input(self.leftmostled_pin)
 
     def lless(self):
-        return self.lless_v
+        return GPIO.input(self.leftlessled_pin)
 
     def center(self):
-        return self.center_v
+        return GPIO.input(self.centerled_pin)
 
     def rless(self):
-        return self.rless_v
+        return GPIO.input(self.rightlessled_pin)
 
     def rmost(self):
-        return self.rmost_v
+        return GPIO.input(self.rightmostled_pin)
 
     def isForward(self):
-        print("isForward")
-        return self.center_v == 0
+        return self.center() == 0
 
     def isSemiLeft(self):
-        print("isSemiLeft")
-        return (self.lless_v == 1 and self.center_v == 0 and self.rless_v == 0)
+        return self.lless() == 1 and self.center() == 0 and self.rless() == 0
 
     def isSemiRight(self):
-        print("isSemiRight")
-        return (self.lless_v == 0 and self.center_v == 0 and self.rless_v == 1)
+        return self.lless() == 0 and self.center() == 0 and self.rless() == 1
+
+    def isNeedLeft(self):
+        return self.lmost() == 0 and self.lless() == 0 and self.rless() == 1 and self.rmost == 1
+
+    def isNeedRight(self):
+        return self.lmost() == 1 and self.lless() == 1 and self.rless() == 0 and self.rmost == 0
 
     def isStop(self):
-        print("isStop")
-        return (self.lmost == 1 and self.lless_v == 1 and self.center_v == 1 and self.rless_v == 1  and self.rmost_v == 1)
+        return self.lmost() == 1 and self.lless() == 1 and self.center() == 1 and self.rless() == 1  and self.rmost() == 1

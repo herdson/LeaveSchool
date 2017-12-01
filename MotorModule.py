@@ -122,14 +122,15 @@ def motor_accurate_set(left_speed, right_speed):
     leftmotor(forward0)
     rightmotor(forward0)
 
+    # set the left and two motor pwm to be ready to move
     GPIO.output(MotorLeft_PWM, GPIO.HIGH)
     GPIO.output(MotorRight_PWM, GPIO.HIGH)
 
+    # set the speed of the two motor to go backward
     LeftPwm.ChangeDutyCycle(left_speed)
     RightPwm.ChangeDutyCycle(right_speed)
 
-def leftPointTurn(speed, running_time):
-
+def leftPointTurn(speed):
     # set the left motor to go backward and right motor to go forward
     leftmotor(backward0)
     rightmotor(forward0)
@@ -138,15 +139,22 @@ def leftPointTurn(speed, running_time):
     GPIO.output(MotorLeft_PWM, GPIO.HIGH)
     GPIO.output(MotorRight_PWM, GPIO.HIGH)
 
-    # set the speed of the left motor to go backward
+    # set the speed of the two motor to go backward
     LeftPwm.ChangeDutyCycle(speed)
-
-    # set the speed of the right motor to go forward
     RightPwm.ChangeDutyCycle(speed)
 
-    # set the running time of the left motor to go forward
-    time.sleep(running_time)
+def rightPointTurn(speed):
+    # set the left motor to go backward and right motor to go forward
+    leftmotor(forward0)
+    rightmotor(backward0)
 
+    # set the left and right motor pwm to be ready to move
+    GPIO.output(MotorLeft_PWM, GPIO.HIGH)
+    GPIO.output(MotorRight_PWM, GPIO.HIGH)
+
+    # set the speed of the two motor to go backward
+    LeftPwm.ChangeDutyCycle(speed)
+    RightPwm.ChangeDutyCycle(speed)
 
 # =======================================================================
 # define the stop module
@@ -161,11 +169,9 @@ def stop():
     # left motor will be stopped with function of ChangeDutyCycle(0)
     RightPwm.ChangeDutyCycle(0)
 
-
 def pwm_setup():
     LeftPwm.start(0)
     RightPwm.start(0)
-
 
 def pwm_low():
     GPIO.output(MotorLeft_PWM, GPIO.LOW)

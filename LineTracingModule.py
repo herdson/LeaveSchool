@@ -9,16 +9,16 @@ class LineTracingModule:
     isRightHand = False
     # ------------------ #
 
-    def setup(self):
+    def setup(self, trModule):
         GPIO.setwarnings(False)
         pwm_setup()
-        started = True
-        self.loop(self, trackingModule())
+        self.started = True
+        self.loop(trModule)
 
     def loop(self, trModule):
         try:
             while True:
-                if not(self.started):
+                if not self.started:
                     break
 
                 if trModule.isSemiLeft():
@@ -28,6 +28,9 @@ class LineTracingModule:
                 elif trModule.isForward():
                     motor_accurate_set(30, 30)
                 elif trModule.isStop():
+                    while trModule.center() == 1:
+                        leftPointTurn(30)
+                    print("CENTER == 0")
                     stop()
 
         # when the Ctrl+C key has been pressed,
