@@ -81,8 +81,6 @@ def rightmotor(x):
         GPIO.output(MotorRight_B, GPIO.LOW)
 
 
-# student assignment (3)
-
 # =======================================================================
 # because the connections between motors (left motor) and Raspberry Pi has been
 # established, the GPIO pins of Raspberry Pi
@@ -130,6 +128,19 @@ def motor_accurate_set(left_speed, right_speed):
     LeftPwm.ChangeDutyCycle(left_speed)
     RightPwm.ChangeDutyCycle(right_speed)
 
+def motor_accurate_set_time(left_speed, right_speed, running_time):
+    # set the two motor to go forward
+    leftmotor(forward0)
+    rightmotor(forward0)
+
+    # set the left and two motor pwm to be ready to move
+    GPIO.output(MotorLeft_PWM, GPIO.HIGH)
+    GPIO.output(MotorRight_PWM, GPIO.HIGH)
+
+    # set the speed of the two motor to go backward
+    LeftPwm.ChangeDutyCycle(left_speed)
+    RightPwm.ChangeDutyCycle(right_speed)
+
 def leftPointTurn(speed):
     # set the left motor to go backward and right motor to go forward
     leftmotor(backward0)
@@ -156,10 +167,40 @@ def rightPointTurn(speed):
     LeftPwm.ChangeDutyCycle(speed)
     RightPwm.ChangeDutyCycle(speed)
 
+def leftSwingTurn(speed):
+    # set the right motor to go fowrard
+    rightmotor(forward0)
+
+    # set the left motor pwm to be ready to stop
+    GPIO.output(MotorLeft_PWM, GPIO.LOW)
+
+    # set the right motor pwm to be ready to go forward
+    GPIO.output(MotorRight_PWM, GPIO.HIGH)
+
+    # set the speed of the left motor to stop
+    LeftPwm.ChangeDutyCycle(0)
+    # set the speed of the right motor to go fowrard
+    RightPwm.ChangeDutyCycle(speed)
+
+def rightSwingTurn(speed):
+    # set the right motor to go fowrard
+    leftmotor(forward0)
+
+    # set the left motor pwm to be ready to stop
+    GPIO.output(MotorLeft_PWM, GPIO.HIGH)
+
+    # set the right motor pwm to be ready to go forward
+    GPIO.output(MotorRight_PWM, GPIO.LOW)
+
+    # set the speed of the left motor to stop
+    LeftPwm.ChangeDutyCycle(speed)
+    # set the speed of the right motor to go fowrard
+    RightPwm.ChangeDutyCycle(0)
+
 # =======================================================================
 # define the stop module
 # =======================================================================
-def stop():
+def motor_stop():
     # the speed of left motor will be set as LOW
     GPIO.output(MotorLeft_PWM, GPIO.LOW)
     # the speed of right motor will be set as LOW

@@ -52,5 +52,8 @@ class trackingModule:
     def isNeedRight(self):
         return self.lmost() == 1 and self.lless() == 1 and self.rless() == 0 and self.rmost == 0
 
-    def isStop(self):
+    def isAllBlack(self):
+        return self.lmost() == 0 and self.lless() == 0 and self.center() == 0 and self.rless() == 0 and self.rmost() == 0
+
+    def isAllWhite(self):
         return self.lmost() == 1 and self.lless() == 1 and self.center() == 1 and self.rless() == 1  and self.rmost() == 1

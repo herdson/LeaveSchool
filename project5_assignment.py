@@ -6,7 +6,8 @@ try:
     trackingModule.setup()
 
     LineTracingModule = LineTracingModule()
-    LineTracingModule.setup()
+    LineTracingModule.setup(trackingModule)
 
-except Exception:
+except Exception as e:
     print("An error occurred while running the program.")
+    print(e)
