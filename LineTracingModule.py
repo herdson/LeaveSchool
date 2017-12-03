@@ -29,35 +29,33 @@ class LineTracingModule:
                 if not self.started:
                     break
 
-                distance_Val = utModule.getDistance()
+                #distance_Val = utModule.getDistance()
                 self.isPassing_Func = False
-
-                #if distance_Val < 15:
 
                 if trModule.isSemiLeft():
                     motor_stop()
-                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 3)
+                    motor_accurate_set_time(self.isDefaultLine[0], self.isDefaultLine[1] + 5, 0.1)
                     print("isSemiLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isSemiRight():
                     motor_stop()
-                    motor_accurate_set(self.isDefaultLine[0] + 3, self.isDefaultLine[1])
+                    motor_accurate_set_time(self.isDefaultLine[0] + 5, self.isDefaultLine[1], 0.1)
                     print("isSemiRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isHighPowerLeft():
                     motor_stop()
-                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 6)
+                    motor_accurate_set_time(self.isDefaultLine[0], self.isDefaultLine[1] + 20, 0.1)
                     print("isHighPowerLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isHighPowerRight():
                     motor_stop()
-                    motor_accurate_set(self.isDefaultLine[0] + 6, self.isDefaultLine[1])
+                    motor_accurate_set_time(self.isDefaultLine[0] + 20, self.isDefaultLine[1], 0.1)
                     print("isHighPowerRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
