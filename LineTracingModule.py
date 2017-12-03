@@ -34,12 +34,20 @@ class LineTracingModule:
                     motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1])
                     print("isSemiRight")
 
+                elif trModule.isMediumPowerLeft():
+                    motor_accurate_set(self.isDefaultLine[1], self.isDefaultLine[0] + 6)
+                    print("isMediumPowerLeft")
+
+                elif trModule.isMediumPowerRight():
+                    motor_accurate_set(self.isDefaultLine[0] + 6, self.isDefaultLine[1])
+                    print("isMediumPowerRight")
+
                 elif trModule.isHighPowerLeft():
-                    motor_accurate_set(self.isDefaultLine[1], self.isDefaultLine[0] + 2)
+                    motor_accurate_set(self.isDefaultLine[1], self.isDefaultLine[0] + 4)
                     print("isHighPowerLeft")
 
                 elif trModule.isHighPowerRight():
-                    motor_accurate_set(self.isDefaultLine[0] + 2, self.isDefaultLine[1] + 2)
+                    motor_accurate_set(self.isDefaultLine[0] + 4, self.isDefaultLine[1])
                     print("isHighPowerRight")
 
                 elif trModule.isNeedLeft():
@@ -97,17 +105,20 @@ class LineTracingModule:
                             motor_stop()
                             break
                         leftPointTurn_time(self.isLeftValue[0], self.isLeftValue[1], 0.3)
+                        print("LeftTurn Working")
                     else:
                         if trModule.isRightFoundLine():
                             motor_stop()
                             break
                         rightPointTurn_time(self.isRightValue[0], self.isRightValue[1], 0.3)
+                        print("RightTurn Working")
                     self.Inertia_prevention()
                 else:
                     if trModule.isRightFoundLine():
                         motor_stop()
                         break
                     rightSwingTurn_time(30, 0.6)
+                    print("U-Turn Working")
                     self.Inertia_prevention()
         except Exception as e:
             print("(Turn) An error occurred while running the program.")
