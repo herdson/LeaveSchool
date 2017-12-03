@@ -47,10 +47,10 @@ class trackingModule:
         return self.lless() == 0 and self.center() == 0 and self.rless() == 1
 
     def isMediumPowerLeft(self):
-        return self.lless() == 1 and self.center() == 1 and self.rless() == 0
+        return self.lless() == 1 and self.center() == 0 and self.rless() == 0
 
     def isMediumPowerRight(self):
-        return self.lless() == 0 and self.center() == 1 and self.rless() == 1
+        return self.lless() == 0 and self.center() == 0 and self.rless() == 1
 
     def isHighPowerLeft(self):
         return self.lless() == 1 and self.center() == 1 and self.rmost() == 0

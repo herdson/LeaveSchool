@@ -12,7 +12,7 @@ class LineTracingModule:
     # ------------------ #
     isLeftValue = [50, 50]
     isRightValue = [50, 50]
-    isDefaultLine = [30, 30]
+    isDefaultLine = [25, 25]
     # ------------------ #
     distance_Val = 0
 
