@@ -44,61 +44,52 @@ pwm_setup()
 obr = False
 obl = False
 
+trModule = trackingModule()
+trModule.setup()
 
 try:
     while True:
         # IR sensor
-        Le = getLeftmostled()
-        Lc = getLeftlessled()
-        M = getCenterled()
-        Rc = getRightlessled()
-        Re = getRightmostled()
-        LeD = (Le, Lc, M, Rc, Re)
+        Le = trModule.lmost()
+        Lc = trModule.lless()
+        M = trModule.center()
+        Rc = trModule.rless()
+        Re = trModule.rmost()
+        led = (Le, Lc, M, Rc, Re)
+        hled = (Lc, M, Rc)
 
-        #print Le, Lc, M, Rc, Re
+        #print LeD
 
-        # when the distance is above the dis, moving object forwards
-        if obr == True and (LeD == (1,0,0,0,0) or LeD == (1,1,0,0,0)):
-            go_forward(40,0.5)
-            LeD = (Le, Lc, M, Rc, Re)
-        elif obr == True and (LeD == (1,1,0,1,1) or LeD == (1,0,0,1,1) or LeD == (1,1,0,0,1)):
-            obr = False
-            rightSwingTurn(80,0.3)
-            LeD = (Le, Lc, M, Rc, Re)
-            while LeD != (1,1,0,1,1) or LeD != (1,0,0,1,1) or LeD != (1,1,0,0,1) :
-                rightPointTurn(80, 0.1)
-                LeD = (Le, Lc, M, Rc, Re)
-
-        if obl == True and (LeD == (0,0,0,0,1) or LeD == (0,0,0,1,1)):
-            go_forward(40,0.5)
-            LeD = (Le, Lc, M, Rc, Re)
-        elif obl == True and (LeD == (1,1,0,1,1) or LeD == (1,0,0,1,1) or LeD == (1,1,0,0,1)):
-            obl = False
-            leftSwingTurn(80,0.3)
-            LeD = (Le, Lc, M, Rc, Re)
-            while LeD != (1,1,0,1,1) or LeD != (1,0,0,1,1) or LeD != (1,1,0,0,1) :
-                leftPointTurn(80, 0.1)
-                LeD = (Le, Lc, M, Rc, Re)
-
-
-
-        if LeD == (1,1,0,1,1):
-            go_forward_any(33)
-            #print "FORWARD"
-        # Focus to black line
-
-        if LeD == (1,0,0,1,1):
-            mazetracker(60, 20)
-        elif LeD == (1,1,0,0,1):
-            mazetracker(20, 60)
-
-        if (LeD == (1,0,0,0,0)) or (LeD == (1,1,0,0,0)):
+        # to forward
+        if hled == (1,0,1) and obr == False and obl == False:
+            go_forward_any(35)
+        # to left
+        elif hled == (0,0,1) and obr == False and obl == False:
+            mazetracker(40, 55)
+        elif hled == (0,1,1) and obr == False and obl == False:
+            mazetracker(0, 60)
+        # to right
+        elif hled == (1,0,0) and obr == False and obl == False:
+            mazetracker(55, 40)
+        elif hled == (1,1,0) and obr == False and obl == False:
+            mazetracker(60, 0)
+        elif led == (1,0,0,0,0) or led == (1,1,0,0,0):
             obr = True
-            rightSwingTurn(80,0.3)
-        elif (LeD == (0,0,0,0,1)) or (LeD == (0,0,0,1,1)):
+            stop()
+            go_forward(30, 0.6)
+        elif led == (0,0,0,0,1) or led == (0,0,0,1,1):
             obl = True
-            leftSwingTurn(80, 0.3)
+            stop()
+            go_forward(30, 2)
+
+        if hled != (1,1,1) and obr == True:
+            rightPointTurn(80, 0.3)
+            while hled == (1,1,1):
+                rightPointTurn(80, 0.1)
+                hled = (Lc, M, Rc)
+            
         
+     
 
 
     print 'Shutdown'            
