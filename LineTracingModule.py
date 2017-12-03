@@ -10,9 +10,12 @@ class LineTracingModule:
     isDEBUG_START = False
     isPassing_Func = False
     # ------------------ #
+    trackLeftValue = [20, 60]
+    trackRightValue = [60, 20]
     isLeftValue = [50, 50]
     isRightValue = [50, 50]
     isDefaultLine = [35, 35]
+
     # ------------------ #
     distance_Val = 0
 
@@ -32,25 +35,25 @@ class LineTracingModule:
                 self.isPassing_Func = False
 
                 if trModule.isSemiLeft():
-                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 15)
+                    motor_accurate_set(self.trackLeftValue[0] + 20, self.trackLeftValue[1] - 5)
                     print("isSemiLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isSemiRight():
-                    motor_accurate_set(self.isDefaultLine[0] + 30, self.isDefaultLine[1])
+                    motor_accurate_set(self.trackRightValue[0] - 5 , self.trackRightValue[1] + 20)
                     print("isSemiRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isHighPowerLeft():
-                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 20)
+                    motor_accurate_set(self.trackLeftValue[0], self.trackLeftValue[1])
                     print("isHighPowerLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isHighPowerRight():
-                    motor_accurate_set(self.isDefaultLine[0] + 40, self.isDefaultLine[1])
+                    motor_accurate_set(self.trackRightValue[0] , self.trackRightValue[1])
                     print("isHighPowerRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
