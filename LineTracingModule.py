@@ -33,20 +33,6 @@ class LineTracingModule:
 
                 #if distance_Val < 15:
 
-                if trModule.isMediumPowerLeft():
-                    motor_stop()
-                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 3)
-                    print("isMediumPowerLeft")
-                    if self.isDEBUG_START:
-                        self.isPassing_Func = True
-
-                if trModule.isMediumPowerRight():
-                    motor_stop()
-                    motor_accurate_set(self.isDefaultLine[0] + 3, self.isDefaultLine[1])
-                    print("isMediumPowerRight")
-                    if self.isDEBUG_START:
-                        self.isPassing_Func = True
-
                 if trModule.isHighPowerLeft():
                     motor_stop()
                     motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 5)
@@ -156,7 +142,7 @@ class LineTracingModule:
                 if trModule.isAllWhite():
                     motor_stop()
                     break
-                motor_accurate_set(40, 40)
+                motor_accurate_set_time(30, 30, 1)
 
             # Inertia movement prevention
             sleep(2)
