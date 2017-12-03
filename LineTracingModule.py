@@ -16,13 +16,13 @@ class LineTracingModule:
     # ------------------ #
     distance_Val = 0
 
-    def setup(self, trModule, utModule):
+    def setup(self, trModule):
         GPIO.setwarnings(False)
         pwm_setup()
         self.started = True
-        self.loop(trModule, utModule)
+        self.loop(trModule)
 
-    def loop(self, trModule, utModule):
+    def loop(self, trModule):
         try:
             while True:
                 if not self.started:
@@ -137,7 +137,7 @@ class LineTracingModule:
                 if trModule.isAllWhite():
                     motor_stop()
                     break
-                motor_accurate_set_time(30, 30, 0.3)
+                motor_accurate_set_time(30, 30, 1)
 
             # Inertia movement prevention
             sleep(2)
