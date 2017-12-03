@@ -10,17 +10,17 @@ class LineTracingModule:
     isDEBUG_START = False
     isPassing_Func = False
     # ------------------ #
-    isLeftValue = [30, 15]
-    isRightValue = [15, 30]
-    isDefaultLine = [22, 20]
+    isLeftValue = [50, 50]
+    isRightValue = [50, 50]
+    isDefaultLine = [30, 30]
     # ------------------ #
     distance_Val = 0
 
-    def setup(self, trModule):
+    def setup(self, trModule, utModule):
         GPIO.setwarnings(False)
         pwm_setup()
         self.started = True
-        self.loop(trModule)
+        self.loop(trModule, utModule)
 
     def loop(self, trModule, utModule):
         try:
@@ -103,11 +103,11 @@ class LineTracingModule:
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
-                if self.isDEBUG_START and self.isPassing_Func:
-                    #isDebug
-                    print(trModule.isTrackingModuleDebug())
-                    motor_stop()
-                    break
+                #if self.isDEBUG_START and not self.isPassing_Func:
+                #    #isDebug
+                print(trModule.isTrackingModuleDebug())
+                #    motor_stop()
+                #    break
 
         # when the Ctrl+C key has been pressed,
         # the moving object will be stopped
@@ -133,13 +133,13 @@ class LineTracingModule:
                         if trModule.isLeftFoundLine():
                             motor_stop()
                             break
-                        leftPointTurn_time(self.isLeftValue[0], self.isLeftValue[1], 0.3)
+                        leftPointTurn_time(self.isLeftValue[0], self.isLeftValue[1], 0.1)
                         print("LeftTurn Working")
                     else:
                         if trModule.isRightFoundLine():
                             motor_stop()
                             break
-                        rightPointTurn_time(self.isRightValue[0], self.isRightValue[1], 0.3)
+                        rightPointTurn_time(self.isRightValue[0], self.isRightValue[1], 0.1)
                         print("RightTurn Working")
                     self.Inertia_prevention()
                 else:
