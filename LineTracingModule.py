@@ -92,7 +92,7 @@ class LineTracingModule:
                 if trModule.isAllWhite():
                     motor_stop()
                     break
-                motor_accurate_set(25, 25)
+                motor_accurate_set(40, 40)
 
             # Inertia movement prevention
             sleep(2)
@@ -117,7 +117,7 @@ class LineTracingModule:
                     if trModule.isRightFoundLine():
                         motor_stop()
                         break
-                    rightSwingTurn_time(30, 0.6)
+                    rightSwingTurn_time(50, 0.6)
                     print("U-Turn Working")
                     self.Inertia_prevention()
         except Exception as e:
