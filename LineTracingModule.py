@@ -36,28 +36,28 @@ class LineTracingModule:
 
                 if trModule.isSemiLeft():
                     motor_stop()
-                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 4)
+                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 3)
                     print("isSemiLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isSemiRight():
                     motor_stop()
-                    motor_accurate_set(self.isDefaultLine[0] + 4, self.isDefaultLine[1])
+                    motor_accurate_set(self.isDefaultLine[0] + 3, self.isDefaultLine[1])
                     print("isSemiRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isHighPowerLeft():
                     motor_stop()
-                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 8)
+                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 6)
                     print("isHighPowerLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isHighPowerRight():
                     motor_stop()
-                    motor_accurate_set(self.isDefaultLine[0] + 8, self.isDefaultLine[1])
+                    motor_accurate_set(self.isDefaultLine[0] + 6, self.isDefaultLine[1])
                     print("isHighPowerRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
