@@ -12,7 +12,7 @@ class LineTracingModule:
     # ------------------ #
     isLeftValue = [50, 50]
     isRightValue = [50, 50]
-    isDefaultLine = [25, 25]
+    isDefaultLine = [35, 35]
     # ------------------ #
     distance_Val = 0
 
@@ -101,7 +101,7 @@ class LineTracingModule:
 
                 if trModule.isForward():
                     motor_stop()
-                    motor_accurate_set(25, 25)
+                    motor_accurate_set(35, 35)
                     print("isFoward")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
