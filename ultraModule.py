@@ -4,14 +4,11 @@ import time
 GPIO.setmode(GPIO.BOARD)
 
 class ultraModule:
+
+    # ------------------ #
     trig = 33
     echo = 31
-    distance_value = 0
-    started = True
-
-    #  ultrasonic sensor setting
-    GPIO.setup(trig, GPIO.OUT)
-    GPIO.setup(echo, GPIO.IN)
+    # ------------------ #
 
     def getDistance(self):
         GPIO.output(self.trig, False)
@@ -30,19 +27,6 @@ class ultraModule:
         return distance
 
     def setup(self):
-        self.loop(self)
-
-    def loop(self):
-        try:
-            while True:
-                if not(self.started):
-                    break
-                self.distance_value = self.getDistance(self)
-        except KeyboardInterrupt:
-            self.stop(self)
-
-    def stop(self):
-        self.started = False
-
-    def getDistance_Value(self):
-        return self.distance_value
+        #  ultrasonic sensor setting
+        GPIO.setup(self.trig, GPIO.OUT)
+        GPIO.setup(self.echo, GPIO.IN)

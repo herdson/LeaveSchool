@@ -31,6 +31,8 @@ class LineTracingModule:
                 distance_Val = utModule.getDistance()
                 self.isPassing_Func = False
 
+                #if distance_Val < 15:
+
                 if trModule.isMediumPowerLeft():
                     motor_accurate_set(self.isDefaultLine[1], self.isDefaultLine[0] + 6)
                     print("isMediumPowerLeft")
