@@ -38,7 +38,7 @@ class trackingModule:
         return GPIO.input(self.rightmostled_pin)
 
     def isForward(self):
-        return self.lless() == 0 and self.center() == 0 and self.rless() == 0
+        return (self.lless() == 0 and self.center() == 0 and self.rless() == 0) or (self.lless() == 0 and self.center() == 0 and self.rless() == 0)
 
     def isSemiLeft(self):
         return self.lless() == 1 and self.center() == 0 and self.rless() == 0
