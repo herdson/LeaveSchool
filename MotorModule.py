@@ -110,12 +110,12 @@ GPIO.setup(MotorRight_PWM, GPIO.OUT)
 # =======================================================================
 # create left pwm object to control the speed of left motor
 # =======================================================================
-LeftPwm = GPIO.PWM(MotorLeft_PWM, 20)
+LeftPwm = GPIO.PWM(MotorLeft_PWM, 100)
 
 # =======================================================================
 # create right pwm object to control the speed of right motor
 # =======================================================================
-RightPwm = GPIO.PWM(MotorRight_PWM, 20)
+RightPwm = GPIO.PWM(MotorRight_PWM, 100)
 
 def motor_accurate_set(left_speed, right_speed):
     # set the two motor to go forward
