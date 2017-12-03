@@ -11,6 +11,7 @@ class LineTracingModule:
     # ------------------ #
     isLeftValue = [30, 15]
     isRightValue = [15, 30]
+    isDefaultLine = [32, 30]
     # ------------------ #
 
     def setup(self, trModule):
@@ -26,12 +27,20 @@ class LineTracingModule:
                     break
 
                 if trModule.isSemiLeft():
-                    motor_accurate_set(30, 32)
+                    motor_accurate_set(self.isDefaultLine[1], self.isDefaultLine[0])
                     print("isSemiLeft")
 
                 elif trModule.isSemiRight():
-                    motor_accurate_set(32, 30)
+                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1])
                     print("isSemiRight")
+
+                elif trModule.isHighPowerLeft():
+                    motor_accurate_set(self.isDefaultLine[1], self.isDefaultLine[0] + 2)
+                    print("isHighPowerLeft")
+
+                elif trModule.isHighPowerRight():
+                    motor_accurate_set(self.isDefaultLine[0] + 2, self.isDefaultLine[1] + 2)
+                    print("isHighPowerRight")
 
                 elif trModule.isNeedLeft():
                     self.Turn(trModule, True, False)  # Left-Turn, not U-Turn
