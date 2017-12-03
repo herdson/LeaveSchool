@@ -8,17 +8,6 @@ GPIO.setwarnings(False)
 # set up GPIO mode as BOARD
 GPIO.setmode(GPIO.BOARD)
 
-
-# =======================================================================
-# REVERSE function to control the direction of motor in reverse
-# =======================================================================
-def REVERSE(x):
-    if x == True:
-        return False
-    elif x == False:
-        return True
-
-
 # =======================================================================
 # Set the motor's true / false value to go forward.
 # =======================================================================
@@ -28,8 +17,8 @@ forward1 = False
 # =======================================================================
 # Set the motor's true / false value to go opposite.
 # =======================================================================
-backward0 = REVERSE(forward0)
-backward1 = REVERSE(forward1)
+backward0 = not forward0
+backward1 = not forward1
 
 # =======================================================================
 # declare the pins of 12, 11, 35 in the Raspberry Pi
@@ -119,8 +108,8 @@ RightPwm = GPIO.PWM(MotorRight_PWM, 100)
 
 def motor_accurate_set(left_speed, right_speed):
     # set the two motor to go forward
-    leftmotor(forward0)
-    rightmotor(forward0)
+    #leftmotor(forward0)
+    #rightmotor(forward0)
 
     # set the left and two motor pwm to be ready to move
     GPIO.output(MotorLeft_PWM, GPIO.HIGH)
