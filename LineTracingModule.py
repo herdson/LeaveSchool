@@ -34,37 +34,47 @@ class LineTracingModule:
                 #if distance_Val < 15:
 
                 if trModule.isMediumPowerLeft():
-                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 4)
+                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 3)
                     print("isMediumPowerLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isMediumPowerRight():
-                    motor_accurate_set(self.isDefaultLine[0] + 4, self.isDefaultLine[1])
+                    motor_accurate_set(self.isDefaultLine[0] + 3, self.isDefaultLine[1])
                     print("isMediumPowerRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isHighPowerLeft():
-                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 6)
+                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 5)
                     print("isHighPowerLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isHighPowerRight():
-                    motor_accurate_set(self.isDefaultLine[0] + 6, self.isDefaultLine[1])
+                    motor_accurate_set(self.isDefaultLine[0] + 5, self.isDefaultLine[1])
                     print("isHighPowerRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isStrongLeft():
-                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 8)
+                    # ------------------ #
+                    while True:
+                        if trModule.rmost() == 0:
+                            break
+                        leftSwingTurn_time(30, 0.1)
+                    # ------------------ #
                     print("isStrongLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isStrongRight():
-                    motor_accurate_set(self.isDefaultLine[0] + 8, self.isDefaultLine[1])
+                    # ------------------ #
+                    while True:
+                        if trModule.lmost() == 0:
+                            break
+                        rightSwingTurn_time(30, 0.1)
+                    # ------------------ #
                     print("isStrongRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
