@@ -12,7 +12,7 @@ class LineTracingModule:
     # ------------------ #
     isLeftValue = [50, 50]
     isRightValue = [50, 50]
-    isDefaultLine = [20, 20]
+    isDefaultLine = [25, 25]
     # ------------------ #
     distance_Val = 0
 
@@ -34,30 +34,35 @@ class LineTracingModule:
                 #if distance_Val < 15:
 
                 if trModule.isMediumPowerLeft():
+                    motor_stop()
                     motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 3)
                     print("isMediumPowerLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isMediumPowerRight():
+                    motor_stop()
                     motor_accurate_set(self.isDefaultLine[0] + 3, self.isDefaultLine[1])
                     print("isMediumPowerRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isHighPowerLeft():
+                    motor_stop()
                     motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 5)
                     print("isHighPowerLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isHighPowerRight():
+                    motor_stop()
                     motor_accurate_set(self.isDefaultLine[0] + 5, self.isDefaultLine[1])
                     print("isHighPowerRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isStrongLeft():
+                    motor_stop()
                     # ------------------ #
                     while True:
                         if trModule.rmost() == 0:
@@ -69,6 +74,7 @@ class LineTracingModule:
                         self.isPassing_Func = True
 
                 if trModule.isStrongRight():
+                    motor_stop()
                     # ------------------ #
                     while True:
                         if trModule.lmost() == 0:
@@ -80,36 +86,42 @@ class LineTracingModule:
                         self.isPassing_Func = True
 
                 if trModule.isSemiLeft():
+                    motor_stop()
                     motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 2)
                     print("isSemiLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isSemiRight():
+                    motor_stop()
                     motor_accurate_set(self.isDefaultLine[0] + 2, self.isDefaultLine[1])
                     print("isSemiRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isNeedLeft():
+                    motor_stop()
                     self.Turn(trModule, True, False)  # Left-Turn, not U-Turn
                     print("isLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isNeedRight():
+                    motor_stop()
                     self.Turn(trModule, False, False)  # not Left-Turn, not U-Turn
                     print("isRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isForward():
-                    motor_accurate_set(30, 30)
+                    motor_stop()
+                    motor_accurate_set(25, 25)
                     print("isFoward")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isAllBlack():
+                    motor_stop()
                     if not self.isRightHand:
                         self.Turn(trModule, True, False) #Left-Turn, not U-Turn
                         print("AllBlack_LEFT")
@@ -120,6 +132,7 @@ class LineTracingModule:
                         self.isPassing_Func = True
 
                 if trModule.isAllWhite():
+                    motor_stop()
                     self.Turn(trModule, False, True) #not Left-Turn, U-Turn
                     print("U-Turn")
                     if self.isDEBUG_START:
