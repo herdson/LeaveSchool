@@ -33,6 +33,20 @@ class LineTracingModule:
 
                 #if distance_Val < 15:
 
+                if trModule.isSemiLeft():
+                    motor_stop()
+                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 2)
+                    print("isSemiLeft")
+                    if self.isDEBUG_START:
+                        self.isPassing_Func = True
+
+                if trModule.isSemiRight():
+                    motor_stop()
+                    motor_accurate_set(self.isDefaultLine[0] + 2, self.isDefaultLine[1])
+                    print("isSemiRight")
+                    if self.isDEBUG_START:
+                        self.isPassing_Func = True
+
                 if trModule.isHighPowerLeft():
                     motor_stop()
                     motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 5)
@@ -68,20 +82,6 @@ class LineTracingModule:
                         rightSwingTurn_time(30, 0.1)
                     # ------------------ #
                     print("isStrongRight")
-                    if self.isDEBUG_START:
-                        self.isPassing_Func = True
-
-                if trModule.isSemiLeft():
-                    motor_stop()
-                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 2)
-                    print("isSemiLeft")
-                    if self.isDEBUG_START:
-                        self.isPassing_Func = True
-
-                if trModule.isSemiRight():
-                    motor_stop()
-                    motor_accurate_set(self.isDefaultLine[0] + 2, self.isDefaultLine[1])
-                    print("isSemiRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
