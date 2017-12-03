@@ -146,7 +146,7 @@ class LineTracingModule:
                 if trModule.isAllWhite():
                     motor_stop()
                     break
-                motor_accurate_set_time(30, 30, 1)
+                motor_accurate_set_time(30, 30, 0.3)
 
             # Inertia movement prevention
             sleep(2)
