@@ -57,7 +57,7 @@ class LineTracingModule:
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
-                if trModule.isFindLeftLine():
+                if trModule.isStrongLeft():
                     # ------------------ #
                     while True:
                         if trModule.rmost() == 0:
@@ -68,7 +68,7 @@ class LineTracingModule:
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
-                if trModule.isFindRightLine():
+                if trModule.isStrongRight():
                     # ------------------ #
                     while True:
                         if trModule.lmost() == 0:
@@ -88,6 +88,18 @@ class LineTracingModule:
                 if trModule.isSemiRight():
                     motor_accurate_set(self.isDefaultLine[0] + 2, self.isDefaultLine[1])
                     print("isSemiRight")
+                    if self.isDEBUG_START:
+                        self.isPassing_Func = True
+
+                if trModule.isNeedLeft():
+                    self.Turn(trModule, True, False)  # Left-Turn, not U-Turn
+                    print("isLeft")
+                    if self.isDEBUG_START:
+                        self.isPassing_Func = True
+
+                if trModule.isNeedRight():
+                    self.Turn(trModule, False, False)  # not Left-Turn, not U-Turn
+                    print("isRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 

@@ -58,11 +58,17 @@ class trackingModule:
     def isHighPowerRight(self):
         return self.lmost() == 0 and self.center() == 1 and self.rless() == 1
 
-    def isFindLeftLine(self):
-        return (self.lmost() == 0 and self.center() == 1 and self.rmost() == 1) or (self.lmost() == 0 and self.center() == 0 and self.rmost() == 1)
+    def isNeedLeft(self):
+        return self.lmost() == 0 and self.lless() == 0 and self.rmost() == 1
 
-    def isFindRightLine(self):
-        return (self.lmost() == 1 and self.center() == 1 and self.rmost() == 0) or (self.lmost() == 1 and self.center() == 0 and self.rmost() == 0)
+    def isNeedRight(self):
+        return self.lmost() == 1 and self.rless() == 0 and self.rmost() == 0
+
+    def isStrongLeft(self):
+        return (self.lmost() == 0 and self.center() == 1 and self.rmost() == 1)
+
+    def isStrongRight(self):
+        return (self.lmost() == 1 and self.center() == 1 and self.rmost() == 0)
 
     def isAllBlack(self):
         return self.lmost() == 0 and self.lless() == 0 and self.center() == 0 and self.rless() == 0 and self.rmost() == 0
