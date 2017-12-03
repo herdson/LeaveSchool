@@ -54,10 +54,10 @@ class trackingModule:
         return self.lless() == 1 and self.center() == 1 and self.rless() == 0
 
     def isNeedLeft(self):
-        return (self.lmost() == 0 and self.lless() == 0 and self.rmost() == 1) #or (self.lmost() == 0 and self.lless() == 1 and self.center() == 1 and self.rless() == 1)
+        return (self.lmost() == 1 and self.lless() == 0 and self.rmost() == 0) #or (self.lmost() == 0 and self.lless() == 1 and self.center() == 1 and self.rless() == 1)
 
     def isNeedRight(self):
-        return self.lmost() == 1 and self.rless() == 0 and self.rmost() == 0 #or (self.lless() == 1 and self.center() == 1 and self.rless() == 1 and self.rmost() == 0)
+        return self.lmost() == 0 and self.rless() == 0 and self.rmost() == 1 #or (self.lless() == 1 and self.center() == 1 and self.rless() == 1 and self.rmost() == 0)
 
     def isStrongLeft(self):
         return (self.lmost() == 0 and self.center() == 0  and self.rmost() == 1)
