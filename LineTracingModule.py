@@ -34,29 +34,35 @@ class LineTracingModule:
                 #distance_Val = utModule.getDistance()
                 self.isPassing_Func = False
 
-                if trModule.isSemiLeft():
-                    motor_accurate_set(self.trackLeftValue[0] + 20, self.trackLeftValue[1] - 5)
+                if trModule.isForward():
+                    motor_accurate_set(35, 35)
+                    print("isFoward")
+                    if self.isDEBUG_START:
+                        self.isPassing_Func = True
+
+                elif trModule.isSemiLeft():
+                    motor_accurate_set(40, 55)
                     print("isSemiLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
-                if trModule.isSemiRight():
-                    motor_accurate_set(self.trackRightValue[0] - 5 , self.trackRightValue[1] + 20)
-                    print("isSemiRight")
-                    if self.isDEBUG_START:
-                        self.isPassing_Func = True
-
-                if trModule.isHighPowerLeft():
-                    motor_accurate_set(self.trackLeftValue[0], self.trackLeftValue[1])
+                elif trModule.isHighPowerLeft():
+                    motor_accurate_set(0, 60)
                     print("isHighPowerLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
-                if trModule.isHighPowerRight():
-                    motor_accurate_set(self.trackRightValue[0] , self.trackRightValue[1])
-                    print("isHighPowerRight")
+                elif trModule.isSemiRight():
+                    motor_accurate_set(55, 40)
+                    print("isSemiRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
+
+                elif trModule.isHighPowerRight():
+                    motor_accurate_set(60, 0)
+                    print("isHighPowerRight")
+                    if self.isDEBUG_START:
+                        self.isPassing_Func= True
 
                 if trModule.isNeedLeft():
                     motor_stop()

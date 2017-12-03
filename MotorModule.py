@@ -108,8 +108,8 @@ RightPwm = GPIO.PWM(MotorRight_PWM, 100)
 
 def motor_accurate_set(left_speed, right_speed):
     # set the two motor to go forward
-    #leftmotor(forward0)
-    #rightmotor(forward0)
+    leftmotor(forward0)
+    rightmotor(forward0)
 
     # set the left and two motor pwm to be ready to move
     GPIO.output(MotorLeft_PWM, GPIO.HIGH)
