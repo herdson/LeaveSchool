@@ -9,6 +9,9 @@ class LineTracingModule:
     isRightHand = False
     isUTurn = False
     # ------------------ #
+    isLeftValue = [30, 15]
+    isRightValue = [15, 30]
+    # ------------------ #
 
     def setup(self, trModule):
         GPIO.setwarnings(False)
@@ -31,50 +34,79 @@ class LineTracingModule:
                     print("isSemiRight")
 
                 elif trModule.isNeedLeft():
-                    # Slightly forward
-                    motor_accurate_set_time(30, 30, 1)
-                    while trModule.lless() == 1:
-                        leftPointTurn(10)
+                    self.Turn(trModule, True, False)  # Left-Turn, not U-Turn
                     print("isLeft")
-                    motor_stop()
 
                 elif trModule.isNeedRight():
-                    # Slightly forward
-                    motor_accurate_set_time(30, 30, 1)
-                    while trModule.lless() == 1:
-                        rightPointTurn(10)
+                    self.Turn(trModule, False, False)  # not Left-Turn, not U-Turn
                     print("isRight")
-                    motor_stop()
 
                 elif trModule.isForward():
                     motor_accurate_set(30, 30)
                     print("isFoward")
 
                 elif trModule.isAllBlack():
-                    # Slightly forward
-                    motor_accurate_set_time(30, 30, 1)
                     if not self.isRightHand:
-                        while trModule.lless() == 1:
-                            leftPointTurn(20)
+                        self.Turn(trModule, True, False) #Left-Turn, not U-Turn
                         print("AllBlack_LEFT")
                     else:
-                        while trModule.rless() == 1:
-                            rightPointTurn(20)
+                        self.Turn(trModule, False, False) #not Left-Turn, not U-Turn
                         print("AllBlack_RIGHT")
-                    motor_stop()
 
                 elif trModule.isAllWhite():
-                    # Slightly forward
-                    motor_accurate_set_time(30, 30, 1)
-                    while trModule.lless() == 1:
-                        rightSwingTurn(20)
+                    self.Turn(trModule, False, True) #not Left-Turn, U-Turn
                     print("U-Turn")
+
+                else:
+                    #isDebug
+                    print(trModule.isTrackingModuleDebug())
                     motor_stop()
+                    break
 
         # when the Ctrl+C key has been pressed,
         # the moving object will be stopped
         except KeyboardInterrupt:
             pwm_low()
+
+    def Turn(self, trModule, isLeftTurn, isUTurn):
+        try:
+            # Slightly forward
+            while True:
+                if trModule.isAllWhite():
+                    motor_stop()
+                    break
+                motor_accurate_set(25, 25)
+
+            # Inertia movement prevention
+            sleep(2)
+
+            # Rotate until sensor finds line
+            while True:
+                if not isUTurn:
+                    if isLeftTurn:
+                        if trModule.isLeftFoundLine():
+                            motor_stop()
+                            break
+                        leftPointTurn_time(self.isLeftValue[0], self.isLeftValue[1], 0.3)
+                    else:
+                        if trModule.isRightFoundLine():
+                            motor_stop()
+                            break
+                        rightPointTurn_time(self.isRightValue[0], self.isRightValue[1], 0.3)
+                    self.Inertia_prevention()
+                else:
+                    if trModule.isRightFoundLine():
+                        motor_stop()
+                        break
+                    rightSwingTurn_time(30, 0.6)
+                    self.Inertia_prevention()
+        except Exception as e:
+            print("(Turn) An error occurred while running the program.")
+            print(e)
+
+    def Inertia_prevention(self):
+        motor_stop()
+        sleep(0.3)
 
     def stop(self):
         self.started = False

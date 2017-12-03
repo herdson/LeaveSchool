@@ -9,5 +9,8 @@ try:
     LineTracingModule.setup(trackingModule)
 
 except Exception as e:
-    print("An error occurred while running the program.")
+    print("(PR) An error occurred while running the program.")
     print(e)
+
+str = "string"
+str[1]
