@@ -7,7 +7,6 @@ class LineTracingModule:
     # ------------------ #
     started = False
     isRightHand = False
-    isTurnEnd = False
     isDEBUG_START = False
     isPassing_Func = False
     # ------------------ #
@@ -33,35 +32,48 @@ class LineTracingModule:
                 self.isPassing_Func = False
 
                 if trModule.isSemiLeft():
-                    motor_stop()
-                    motor_accurate_set_time(self.isDefaultLine[0], self.isDefaultLine[1] + 5, 0.1)
+                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 15)
                     print("isSemiLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isSemiRight():
-                    motor_stop()
-                    motor_accurate_set_time(self.isDefaultLine[0] + 5, self.isDefaultLine[1], 0.1)
+                    motor_accurate_set(self.isDefaultLine[0] + 30, self.isDefaultLine[1])
                     print("isSemiRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isHighPowerLeft():
-                    motor_stop()
-                    motor_accurate_set_time(self.isDefaultLine[0], self.isDefaultLine[1] + 20, 0.1)
+                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 20)
                     print("isHighPowerLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isHighPowerRight():
-                    motor_stop()
-                    motor_accurate_set_time(self.isDefaultLine[0] + 20, self.isDefaultLine[1], 0.1)
+                    motor_accurate_set(self.isDefaultLine[0] + 40, self.isDefaultLine[1])
                     print("isHighPowerRight")
+                    if self.isDEBUG_START:
+                        self.isPassing_Func = True
+
+                if trModule.isNeedLeft():
+                    motor_stop()
+                    sleep(2)
+                    self.Turn(trModule, True, False)  # Left-Turn, not U-Turn
+                    print("isLeft")
+                    if self.isDEBUG_START:
+                        self.isPassing_Func = True
+
+                if trModule.isNeedRight():
+                    motor_stop()
+                    sleep(2)
+                    self.Turn(trModule, False, False)  # not Left-Turn, not U-Turn
+                    print("isRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isStrongLeft():
                     motor_stop()
+                    sleep(2)
                     # ------------------ #
                     while True:
                         if trModule.rmost() == 0:
@@ -72,43 +84,26 @@ class LineTracingModule:
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
-                if self.isTurnEnd:
-                    if trModule.isStrongRight():
-                        motor_stop()
-                        # ------------------ #
-                        while True:
-                            if trModule.lmost() == 0:
-                                break
-                            rightSwingTurn_time(30, 0.1)
-                        # ------------------ #
-                        print("isStrongRight")
-                        if self.isDEBUG_START:
-                            self.isPassing_Func = True
-
-                    if trModule.isNeedLeft():
-                        motor_stop()
-                        self.Turn(trModule, True, False)  # Left-Turn, not U-Turn
-                        print("isLeft")
-                        if self.isDEBUG_START:
-                            self.isPassing_Func = True
-                        self.isTurnEnd = False
-
-                if trModule.isNeedRight():
+                if trModule.isStrongRight():
                     motor_stop()
-                    self.Turn(trModule, False, False)  # not Left-Turn, not U-Turn
-                    print("isRight")
+                    sleep(2)
+                    # ------------------ #
+                    while True:
+                        if trModule.lmost() == 0:
+                            break
+                        rightSwingTurn_time(30, 0.1)
+                    # ------------------ #
+                    print("isStrongRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isForward():
-                    motor_stop()
                     motor_accurate_set(35, 35)
                     print("isFoward")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isAllBlack():
-                    motor_stop()
                     if not self.isRightHand:
                         self.Turn(trModule, True, False) #Left-Turn, not U-Turn
                         print("AllBlack_LEFT")
@@ -119,7 +114,6 @@ class LineTracingModule:
                         self.isPassing_Func = True
 
                 if trModule.isAllWhite():
-                    motor_stop()
                     self.Turn(trModule, False, True) #not Left-Turn, U-Turn
                     print("U-Turn")
                     if self.isDEBUG_START:
