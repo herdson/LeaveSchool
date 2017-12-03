@@ -12,7 +12,7 @@ class LineTracingModule:
     # ------------------ #
     isLeftValue = [50, 50]
     isRightValue = [50, 50]
-    isDefaultLine = [25, 25]
+    isDefaultLine = [20, 20]
     # ------------------ #
     distance_Val = 0
 
@@ -34,37 +34,49 @@ class LineTracingModule:
                 #if distance_Val < 15:
 
                 if trModule.isMediumPowerLeft():
-                    motor_accurate_set(self.isDefaultLine[1], self.isDefaultLine[0] + 6)
+                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 4)
                     print("isMediumPowerLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isMediumPowerRight():
-                    motor_accurate_set(self.isDefaultLine[0] + 6, self.isDefaultLine[1])
+                    motor_accurate_set(self.isDefaultLine[0] + 4, self.isDefaultLine[1])
                     print("isMediumPowerRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isHighPowerLeft():
-                    motor_accurate_set(self.isDefaultLine[1], self.isDefaultLine[0] + 4)
+                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 6)
                     print("isHighPowerLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isHighPowerRight():
-                    motor_accurate_set(self.isDefaultLine[0] + 4, self.isDefaultLine[1])
+                    motor_accurate_set(self.isDefaultLine[0] + 6, self.isDefaultLine[1])
                     print("isHighPowerRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
+                if trModule.isStrongLeft():
+                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 8)
+                    print("isStrongLeft")
+                    if self.isDEBUG_START:
+                        self.isPassing_Func = True
+
+                if trModule.isStrongRight():
+                    motor_accurate_set(self.isDefaultLine[0] + 8, self.isDefaultLine[1])
+                    print("isStrongRight")
+                    if self.isDEBUG_START:
+                        self.isPassing_Func = True
+
                 if trModule.isSemiLeft():
-                    motor_accurate_set(self.isDefaultLine[1], self.isDefaultLine[0])
+                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1] + 2)
                     print("isSemiLeft")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
 
                 if trModule.isSemiRight():
-                    motor_accurate_set(self.isDefaultLine[0], self.isDefaultLine[1])
+                    motor_accurate_set(self.isDefaultLine[0] + 2, self.isDefaultLine[1])
                     print("isSemiRight")
                     if self.isDEBUG_START:
                         self.isPassing_Func = True
