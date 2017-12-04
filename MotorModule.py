@@ -134,7 +134,7 @@ def motor_accurate_set_time(left_speed, right_speed, running_time):
 
     sleep(running_time)
 
-def leftPointTurn_time(left_speed, right_speed, running_time):
+def leftPointTurn(left_speed, right_speed):
     # set the left motor to go backward and right motor to go forward
     leftmotor(backward0)
     rightmotor(forward0)
@@ -147,9 +147,7 @@ def leftPointTurn_time(left_speed, right_speed, running_time):
     LeftPwm.ChangeDutyCycle(left_speed)
     RightPwm.ChangeDutyCycle(right_speed)
 
-    sleep(running_time)
-
-def rightPointTurn_time(left_speed, right_speed, running_time):
+def rightPointTurn(left_speed, right_speed):
     # set the left motor to go backward and right motor to go forward
     leftmotor(forward0)
     rightmotor(backward0)
@@ -162,9 +160,7 @@ def rightPointTurn_time(left_speed, right_speed, running_time):
     LeftPwm.ChangeDutyCycle(left_speed)
     RightPwm.ChangeDutyCycle(right_speed)
 
-    sleep(running_time)
-
-def leftSwingTurn_time(speed, running_time):
+def leftSwingTurn(speed):
     # set the right motor to go fowrard
     rightmotor(forward0)
 
@@ -177,9 +173,7 @@ def leftSwingTurn_time(speed, running_time):
     # set the speed of the right motor to go fowrard
     RightPwm.ChangeDutyCycle(speed)
 
-    sleep(running_time)
-
-def rightSwingTurn_time(speed, running_time):
+def rightSwingTurn(speed):
     # set the right motor to go fowrard
     leftmotor(forward0)
 
@@ -191,8 +185,6 @@ def rightSwingTurn_time(speed, running_time):
     LeftPwm.ChangeDutyCycle(speed)
     # set the speed of the right motor to go fowrard
     RightPwm.ChangeDutyCycle(0)
-
-    sleep(running_time)
 
 # =======================================================================
 # define the stop module
