@@ -119,21 +119,6 @@ def motor_accurate_set(left_speed, right_speed):
     LeftPwm.ChangeDutyCycle(left_speed)
     RightPwm.ChangeDutyCycle(right_speed)
 
-def motor_accurate_set_time(left_speed, right_speed, running_time):
-    # set the two motor to go forward
-    leftmotor(forward0)
-    rightmotor(forward0)
-
-    # set the left and two motor pwm to be ready to move
-    GPIO.output(MotorLeft_PWM, GPIO.HIGH)
-    GPIO.output(MotorRight_PWM, GPIO.HIGH)
-
-    # set the speed of the two motor to go backward
-    LeftPwm.ChangeDutyCycle(left_speed)
-    RightPwm.ChangeDutyCycle(right_speed)
-
-    sleep(running_time)
-
 def leftPointTurn(left_speed, right_speed):
     # set the left motor to go backward and right motor to go forward
     leftmotor(backward0)

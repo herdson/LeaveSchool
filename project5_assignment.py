@@ -1,5 +1,6 @@
 from LineTracingModule import *
 from trackingModule import *
+from ultraModule import *
 
 try:
     trackingModule = trackingModule()
