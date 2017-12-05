@@ -71,10 +71,10 @@ class trackingModule:
         return self.lmost() == 1 and self.lless() == 1 and self.center() == 1 and self.rless() == 1  and self.rmost() == 1
 
     def isLeftFoundLine(self):
-        return self.lless() == 0 or self.center() == 0
+        return self.lmost() == 0 and self.lless() == 0
 
     def isRightFoundLine(self):
-        return self.center() == 0 or self.rless() == 0
+        return self.rless() == 0 and self.rmost() == 0
 
     def isTrackingModuleDebug(self):
         return "[DEBUG] : LeftMost = ", self.lmost(), " LeftLess = ", self.lless(), " Center = ", self.center(), " RightLess = ", self.rless(), " RightMost = ", self.rmost()
